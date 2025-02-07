@@ -52,3 +52,6 @@ inventory.yml
 inventory.ini
 *vars.yml
 !default.vars.yml
+
+assets/*
+!assets/README.md
