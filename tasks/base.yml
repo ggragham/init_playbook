@@ -14,27 +14,6 @@
         shell: /bin/bash
         groups: sudo
 
-    - name: Ensure the .ssh directory exists
-      file:
-        path: /home/{{ USERNAME }}/.ssh
-        state: directory
-        owner: '{{ USERNAME }}'
-        group: '{{ USERNAME }}'
-        mode: '0700'
-
-    - name: Set ssh key on hosts
-      authorized_key:
-        user: '{{ USERNAME }}'
-        state: present
-        key: "{{ lookup('file', SSH_KEY_PATH) }}"
-
-    - name: Change SSH port
-      lineinfile:
-        path: /etc/ssh/sshd_config
-        regexp: '^#?Port '
-        line: Port {{ SSH_PORT }}
-      notify: Restart SSH
-
     - name: Set passwordless sudo
       community.general.sudoers:
         name: users

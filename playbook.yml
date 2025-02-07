@@ -22,6 +22,10 @@
       include_tasks: '{{ tasks_path }}/base.yml'
       tags: base
 
+    - name: SSH config
+      include_tasks: '{{ tasks_path }}/ssh.yml'
+      tags: ssh
+
   handlers:
     - name: Restart SSH
       include_tasks: '{{ handlers_path }}/ssh.yml'
