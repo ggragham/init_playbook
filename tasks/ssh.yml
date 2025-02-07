@@ -15,11 +15,27 @@
         state: present
         key: "{{ lookup('file', SSH_KEY_PATH) }}"
 
-    - name: Change SSH port
-      lineinfile:
+    - name: Remove default values in sshd_config
+      replace:
         path: /etc/ssh/sshd_config
-        regexp: '^#?Port '
-        line: Port {{ SSH_PORT }}
+        regexp: ^\s*({{ item }}.*)
+        replace: '# \1'
+      with_items:
+        - Port
+        - PermitRootLogin
+        - MaxAuthTries
+        - MaxSessions
+        - PasswordAuthentication
+        - PermitEmptyPasswords
+        - X11Forwarding
+        - AuthorizedKeysFile
+      become: true
+
+    - name: Apply sshd config
+      template:
+        src: 01_ssh.j2
+        dest: /etc/ssh/sshd_config.d/01_ssh.conf
+        mode: '0600'
       notify: Restart SSH
       become: true
 
