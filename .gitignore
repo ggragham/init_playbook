@@ -18,7 +18,8 @@
 .LSOverride
 
 # Icon must end with two \r
-Icon
+Icon
+
 
 # Thumbnails
 ._*
@@ -46,3 +47,8 @@ Temporary Items
 # *.log
 
 *.retry
+
+inventory.yml
+inventory.ini
+*vars.yml
+!default.vars.yml
