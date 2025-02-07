@@ -18,6 +18,10 @@
       changed_when: false
       become: true
 
+    - name: Network config
+      include_tasks: '{{ tasks_path }}/network.yml'
+      tags: network
+
     - name: Base config
       include_tasks: '{{ tasks_path }}/base.yml'
       tags: base
