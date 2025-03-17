@@ -1,0 +1,7 @@
+---
+- name: Restart qemu-ga
+  service:
+    name: qemu-guest-agent
+    enabled: true
+    state: restarted
+  become: true

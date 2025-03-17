@@ -34,3 +34,7 @@
     - name: Restart SSH
       include_tasks: '{{ handlers_path }}/ssh.yml'
       tags: base
+
+    - name: Restart qemu-ga
+      include_tasks: '{{ handlers_path }}/qemu_ga.yml'
+      tags: base

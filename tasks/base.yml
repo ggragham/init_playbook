@@ -24,4 +24,13 @@
         commands: ALL
       become: true
 
+    - name: Insall qemu-guest-agent
+      apt:
+        name: qemu-guest-agent
+        state: latest
+        update_cache: true
+      notify: Restart qemu-ga
+      become: true
+      when: INSTALL_QEMU_GA
+
   tags: base
