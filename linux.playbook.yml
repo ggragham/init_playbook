@@ -9,7 +9,7 @@
     assets_path: '{{ playbook_dir }}/assets'
     files_path: '{{ playbook_dir }}/files'
     handlers_path: '{{ playbook_dir }}/handlers'
-    tasks_path: '{{ playbook_dir }}/tasks'
+    tasks_path: '{{ playbook_dir }}/tasks/linux'
     templates_path: '{{ playbook_dir }}/templates'
 
   tasks:
