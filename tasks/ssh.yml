@@ -29,14 +29,18 @@
         - PermitEmptyPasswords
         - X11Forwarding
         - AuthorizedKeysFile
-      become: true
+      register: ssh_changed
 
     - name: Apply sshd config
       template:
         src: 01_ssh.j2
         dest: /etc/ssh/sshd_config.d/01_ssh.conf
         mode: '0600'
-      notify: Restart SSH
-      become: true
+      register: ssh_changed
+
+- name: Mark SSH config as changed
+  set_fact:
+    ssh_config_changed: true
+  when: ssh_changed.changed
 
   tags: ssh

@@ -1,0 +1,18 @@
+---
+- name: Create sshd conf dir
+  file:
+    path: /etc/ssh/sshd_config.d
+    state: directory
+    owner: root
+    group: wheel
+    mode: '0700'
+    recurse: true
+
+- name: Ensure sshd includes /etc/ssh/sshd_config.d/*.conf
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    line: Include /etc/ssh/sshd_config.d/*.conf
+    state: present
+    insertafter: EOF
+
+- include_tasks: '{{ playbook_dir }}/tasks/ssh.yml'

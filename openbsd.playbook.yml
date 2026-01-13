@@ -27,6 +27,18 @@
       include_tasks: '{{ tasks_path }}/base.yml'
       tags: base
 
+    - name: SSH config
+      include_tasks: '{{ tasks_path }}/ssh.yml'
+      tags: ssh
+
+  post_tasks:
+    - name: SSH restart reminder
+      debug:
+        msg:
+          - "Don't forget to restart sshd manually:"
+          - rcctl restart sshd
+      when: ssh_config_changed | default(false)
+
   handlers:
     - name: Restart Network
       include_tasks: '{{ handlers_path }}/openbsd_network.yml'
