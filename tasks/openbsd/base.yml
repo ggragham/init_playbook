@@ -1,0 +1,19 @@
+---
+- name: Base OpenBSD config
+  block:
+    - name: Ensure admin user exists
+      user:
+        name: '{{ USERNAME }}'
+        shell: /bin/ksh
+        groups: wheel
+
+    - name: Allow {{ USERNAME }} to use doas
+      lineinfile:
+        path: /etc/doas.conf
+        line: permit persist {{ USERNAME }}
+        create: true
+        owner: root
+        group: wheel
+        mode: '0600'
+
+  tags: base
