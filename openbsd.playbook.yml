@@ -17,3 +17,13 @@
     - name: Install python3 to OpenBSD
       raw: command -v python3 >/dev/null 2>&1 || pkg_add -I 'python%3'
       changed_when: false
+
+  tasks:
+    - name: Network config
+      include_tasks: '{{ tasks_path }}/network.yml'
+      tags: network
+
+  handlers:
+    - name: Restart Network
+      include_tasks: '{{ handlers_path }}/openbsd_network.yml'
+      tags: network

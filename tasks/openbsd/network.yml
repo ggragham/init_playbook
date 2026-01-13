@@ -1,0 +1,23 @@
+---
+- name: Configure network (OpenBSD)
+  block:
+    - name: Configure interface {{ item.name }}
+      copy:
+        dest: /etc/hostname.{{ item.name }}
+        owner: root
+        group: wheel
+        mode: '0640'
+        content: "inet {{ item.ip }} {{ item.netmask }}\n"
+      loop: '{{ network_interfaces }}'
+      loop_control:
+        label: '{{ item.name }}'
+      notify: Restart Network
+
+    - name: Configure default gateway
+      copy:
+        dest: /etc/mygate
+        content: "{{ default_gateway }}\n"
+        owner: root
+        group: wheel
+        mode: '0644'
+      notify: Restart Network

@@ -3,3 +3,15 @@ USERNAME: user
 PASSWORD: qwerty1234
 SSH_KEY_PATH: '{{ assets_path }}/id_rsa.pem.pub'
 SSH_PORT: 2222
+
+# OpenBSD Specific
+network_interfaces:
+  - name: vio0
+    ip: 192.168.88.10
+    netmask: 255.255.255.0
+
+  - name: vio1
+    ip: 10.10.10.10
+    netmask: 255.255.0.0
+
+default_gateway: 192.168.88.1
