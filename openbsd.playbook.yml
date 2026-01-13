@@ -1,0 +1,19 @@
+---
+- name: Init config
+  hosts: all
+  gather_facts: false
+  become_method: doas
+
+  vars_files: [vars.yml]
+
+  vars:
+    assets_path: '{{ playbook_dir }}/assets'
+    files_path: '{{ playbook_dir }}/files'
+    handlers_path: '{{ playbook_dir }}/handlers'
+    tasks_path: '{{ playbook_dir }}/tasks/openbsd'
+    templates_path: '{{ playbook_dir }}/templates'
+
+  pre_tasks:
+    - name: Install python3 to OpenBSD
+      raw: command -v python3 >/dev/null 2>&1 || pkg_add -I 'python%3'
+      changed_when: false
