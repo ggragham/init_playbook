@@ -31,6 +31,10 @@
       include_tasks: '{{ tasks_path }}/ssh.yml'
       tags: ssh
 
+    - name: Guest Agent Config
+      include_tasks: '{{ tasks_path }}/guest_agent.yml'
+      tags: guestagent
+
   post_tasks:
     - name: SSH restart reminder
       debug:
@@ -43,3 +47,7 @@
     - name: Restart Network
       include_tasks: '{{ handlers_path }}/openbsd_network.yml'
       tags: network
+
+    - name: Restart qemu-ga
+      include_tasks: '{{ handlers_path }}/openbsd_qemu_ga.yml'
+      tags: guestagent

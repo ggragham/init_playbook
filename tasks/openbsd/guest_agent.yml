@@ -1,0 +1,17 @@
+---
+- name: Install qemu guest agent pkg
+  openbsd_pkg:
+    name: qemu-ga
+    state: present
+
+- name: Ensure qemu_ga is in autostart
+  blockinfile:
+    path: /etc/rc.conf.local
+    block: |
+      pkg_script=qemu_ga
+      qemu_ga_flags="-t /var/run/qemu-ga -m isa-serial -p /dev/cua0{{ ISA_ID }} -f /var/run/qemu-ga/qemu-ga.pid"
+    create: true
+    owner: root
+    group: wheel
+    mode: '0644'
+  notify: Restart qemu-ga
